@@ -1,12 +1,10 @@
+/* eslint-disable no-console */
 const express = require("express");
 const mongoose = require("mongoose");
-const path = require("path");
 const routes = require("./routes");
 const app = express();
-
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/googlebooks";
-
 const PORT = process.env.PORT || 3001;
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/googlebooks";
 // Connect to the Mongo DB
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useFindAndModify: false  }, err => {
   if (err) {
@@ -27,5 +25,7 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 app.use(routes);
 
-
-app.listen(PORT, ()=> console.log(`🌎 ==> API server now on http://localhost:${PORT}!`));
+// Start the API server
+app.listen(PORT, function() {
+  console.log(`🌎 ==> API server now on http://localhost:${PORT}!`);
+});
