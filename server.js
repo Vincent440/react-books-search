@@ -11,7 +11,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useFindAndModify: false  
   if (err) {
       console.log(err);
   } else {
-      console.log("Mongoose connected successfully!");
+      console.log("Mongoose connected to the DB successfully!");
   }
 });
 
