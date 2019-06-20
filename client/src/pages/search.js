@@ -107,8 +107,9 @@ class Search extends Component {
                       </div>
                       <div className="row no-gutters">
                         <div className="col-12 p-2">
-                          <img src={book.image} alt={book.title} className="float-left mr-4" />
-                          <span className="font-weight-bolder small">Description: </span>{book.description}
+                          <img src={book.image} alt={book.title} className="float-left mr-3 p-2" />
+                          <span className="font-weight-bolder small">Description: </span>
+                          <p className='text-justify'>{book.description}</p>
                         </div>
                       </div>
                     </div>
