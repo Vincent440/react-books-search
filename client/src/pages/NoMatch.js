@@ -4,7 +4,7 @@ import { Col, Row, Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-function errPage() {
+function noMatch() {
   return (
     <Container fluid>
       <Row>
@@ -28,4 +28,4 @@ function errPage() {
   );
 }
 
-export default errPage;
+export default noMatch;
