@@ -27,6 +27,4 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Start the API server
-app.listen(PORT, function() {
-  console.log(`🌎 ==> API server now on http://localhost:${PORT}!`);
-});
+app.listen(PORT, ()=> console.log(`App API ==>  server now on http://localhost:${PORT}!`));

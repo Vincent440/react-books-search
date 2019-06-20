@@ -18,8 +18,9 @@ class Search extends Component {
     this.setState({[name]: value});
   };
   saveBookToDb = id => {
-    let selectedBooks = this.state.books.filter(book => book.id === id);
-    API.saveBook(selectedBooks[0]).then(alert("SAVED")).catch(err => console.log(err))
+    let selectedBooks = this.state.books.filter(book => book._id === id);
+    console.log(selectedBooks[0]);
+    API.saveBook(selectedBooks[0]).then(()=>this.setState({savedText:"Saved"})).catch(err => console.log(err))
   };
 
   handleFormSubmit = event => {
@@ -35,7 +36,7 @@ class Search extends Component {
         } else {
           booksNum = res.data.items.length + " books found!";
         }
-        this.setState({ searchMessage: booksNum });
+        
 
         let bookData = res.data.items;
         bookData = bookData.map(book => {
@@ -44,7 +45,7 @@ class Search extends Component {
           const imageUrl = typeof book.volumeInfo.imageLinks.thumbnail !== "undefined" ? book.volumeInfo.imageLinks.thumbnail : "";
           const link = typeof book.volumeInfo.infoLink !== "undefined" ? book.volumeInfo.infoLink : "";
           book = {
-            id: book.id,
+            _id: book.id,
             title: book.volumeInfo.title,
             author: authors,
             description: description,
@@ -53,7 +54,12 @@ class Search extends Component {
           };
           return book;
         });
-        this.setState({ books: bookData });
+       
+        this.setState({ 
+          books: bookData,
+          searchMessage: booksNum
+          }
+        );
       }
       }).catch(err => console.log(err));
   };
@@ -85,8 +91,8 @@ class Search extends Component {
             <h4 className='d-inline p-1'>Results: {this.state.searchMessage}</h4>
             <List>
               {this.state.books.map(book => (
-                <ListItem key={book._id} >
-                  <div key={book.id} className="row no-gutters my-4 border border-info">
+                <ListItem key={book.id} >
+                  <div className="row no-gutters my-4 border border-info">
                     <div className="col-12">
                       <h5 className="text-light bg-info p-2">{book.title}</h5>
                       <div className="row no-gutters">
@@ -94,8 +100,9 @@ class Search extends Component {
                           <span className="font-weight-bolder small">Author(s): </span>{book.author}
                         </div>
                         <div className="col-6 text-right">
+                          <span className="badge badge-info p-3">{this.state.savedText}</span>
                           <a href={book.link} target="_blank" rel="noopener noreferrer" className="btn btn-outline-dark px-3 m-2" role="button">View</a>
-                          <SaveBtn value={book.id} onClick={() => this.saveBookToDb(book._id)} />
+                          <SaveBtn onClick={() => this.saveBookToDb(book._id)} />
                         </div>
                       </div>
                       <div className="row no-gutters">
@@ -114,9 +121,7 @@ class Search extends Component {
             <div>
               <h4 className='d-inline p-1'>Results:</h4>
               <List>
-                <ListItem>
                   <h1 className='display-4 text-center py-5'>{this.state.searchMessage}</h1>
-                </ListItem>
               </List>
             </div>
           )
