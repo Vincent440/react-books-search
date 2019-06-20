@@ -1,5 +1,5 @@
 {
-  "name": "reactbookserver",
+  "name": "reactbooks",
   "version": "1.0.0",
   "description": "React making api request to google books api application",
   "main": "server.js",
