@@ -33,9 +33,9 @@ render() {
         </Row>
         <Row>
         <Col size="md-12">
-        { this.state.savedBooks ?(
+        { (this.state.savedBooks.length > 0) ? (
         <div>
-          <h4 className='d-inline p-1'>Saved Books: {this.state.searchMessage}</h4> 
+          <h4 className='d-inline p-1'>Saved Books:</h4> 
           <List>
               { this.state.savedBooks.map(book => (
                 <ListItem key={book._id}>

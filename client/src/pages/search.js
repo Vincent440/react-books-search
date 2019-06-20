@@ -11,7 +11,8 @@ class Search extends Component {
     books: [],
     title: "",
     searchMessage:"No books to display.",
-    savedText:""
+    savedText:"",
+    errorText:""
   };
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -20,7 +21,7 @@ class Search extends Component {
   saveBookToDb = id => {
     let selectedBooks = this.state.books.filter(book => book._id === id);
     console.log(selectedBooks[0]);
-    API.saveBook(selectedBooks[0]).then(()=>this.setState({savedText:"Saved"})).catch(err => console.log(err))
+    API.saveBook(selectedBooks[0]).then(()=>this.setState({savedText:"Saved",errorText:""})).catch(()=> this.setState({savedText:"",errorText:"Error Saving"}))
   };
 
   handleFormSubmit = event => {
@@ -31,8 +32,8 @@ class Search extends Component {
       }
       else {
         let booksNum = 0;
-        if (res.data.totalItems > 20) {
-          booksNum = "Displaying 20 of " + res.data.totalItems + " books";
+        if (res.data.totalItems > 10) {
+          booksNum = "Displaying 10 of " + res.data.totalItems + " books";
         } else {
           booksNum = res.data.items.length + " books found!";
         }
@@ -88,7 +89,7 @@ class Search extends Component {
         <Col size="md-12">
         { (this.state.books.length > 0) ? (
           <div>
-            <h4 className='d-inline p-1'>Results: {this.state.searchMessage}</h4>
+            <h4 className='d-inline p-1'>Results: {this.state.searchMessage}<span className="badge badge-success mx-3 p-2">{this.state.savedText}</span><span className="badge badge-danger mx-3 p-2">{this.state.errorText}</span></h4>
             <List>
               {this.state.books.map(book => (
                 <ListItem key={book.id} >
@@ -100,7 +101,6 @@ class Search extends Component {
                           <span className="font-weight-bolder small">Author(s): </span>{book.author}
                         </div>
                         <div className="col-6 text-right">
-                          <span className="badge badge-info p-3">{this.state.savedText}</span>
                           <a href={book.link} target="_blank" rel="noopener noreferrer" className="btn btn-outline-dark px-3 m-2" role="button">View</a>
                           <SaveBtn onClick={() => this.saveBookToDb(book._id)} />
                         </div>

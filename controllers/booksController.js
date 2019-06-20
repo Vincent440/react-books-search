@@ -2,11 +2,8 @@ const db = require("../models/book.js");
 
 module.exports = {
     findAll: function (req, res) {
-        console.log("Find ALL");
-
         db.find(req.query).sort({ date: -1 }).then(data =>{
-
-            console.log(data);
+            console.log("Find ALL\n"+data);
             res.status(200).json(data);
         }).catch(err => res.status(400).json(err));
     },
