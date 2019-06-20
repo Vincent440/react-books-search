@@ -30,4 +30,6 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 // Start the API server
-app.listen(PORT, ()=> console.log(`App API ==>  server now on http://localhost:${PORT}!`));
+app.listen(PORT, ()=>{
+  console.log(`App API ==>  server now on http://localhost:${PORT}!`);
+});
