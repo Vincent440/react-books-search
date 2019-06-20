@@ -5,8 +5,6 @@ import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import DeleteBtn from "../components/DeleteBtn";
 import { List, ListItem } from "../components/List";
-import { Link } from "react-router-dom";
-
 class Saved extends Component {
   state = {
     savedBooks: []

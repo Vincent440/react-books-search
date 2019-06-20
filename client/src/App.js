@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import search from './pages/search';
-import saved from './pages/saved';
-import noMatch from "./pages/noMatch";
+import search from './pages/search.js';
+import saved from './pages/saved.js';
+import noMatch from "./pages/noMatch.js";
 import Navbar from "./components/Navbar";
 
 function App() {

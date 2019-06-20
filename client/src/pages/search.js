@@ -37,8 +37,6 @@ class Search extends Component {
         } else {
           booksNum = res.data.items.length + " books found!";
         }
-        
-
         let bookData = res.data.items;
         bookData = bookData.map(book => {
           const authors = typeof book.volumeInfo.authors !== "undefined" ? book.volumeInfo.authors.join(", ") : "n/a";
@@ -64,7 +62,6 @@ class Search extends Component {
       }
       }).catch(err => console.log(err));
   };
-
   render() {
     return (
       <Container>
