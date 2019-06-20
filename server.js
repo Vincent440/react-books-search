@@ -6,6 +6,9 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/googlebooks";
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // Connect to the Mongo DB
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useFindAndModify: false  }, err => {
   if (err) {
@@ -14,10 +17,6 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useFindAndModify: false  
       console.log("Mongoose connected to the DB successfully!");
   }
 });
-
-app.use(express.urlencoded({ extended: true }));
-
-app.use(express.json());
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
