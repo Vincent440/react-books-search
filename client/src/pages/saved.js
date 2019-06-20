@@ -5,21 +5,22 @@ import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import DeleteBtn from "../components/DeleteBtn";
 import { List, ListItem } from "../components/List";
+import { Link } from "react-router-dom";
 
 class Saved extends Component {
   state = {
-    savedDbBooks: [],
-    saved: false
+    savedBooks: []
 };
-
 componentDidMount() {
-  API.getBooks().then(res => this.setState({ savedDbBooks: res.data })).catch(err => console.log(err));
+  API.getBooks()
+  .then(res => this.setState({ savedBooks: res.data }))
+  .catch(err => console.log(err));
 }
-
 handleDeleteButton = id => {
-  API.deleteBook(id).then(res => this.componentDidMount()).catch(err => console.log(err));
+  API.deleteBook(id)
+  .then(res => this.componentDidMount())
+  .catch(err => console.log(err));
 }
-
 render() {
   return (
       <Container fluid>
@@ -32,22 +33,18 @@ render() {
         </Row>
         <Row>
         <Col size="md-12">
-        {this.state.saved ? (
-              <List>
-                {this.state.savedBooks.map(book => (
-                  <ListItem key={book._id}>
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
+        { this.state.savedBooks ? (<h1 className='border p-4 text-center'>No Saved Books to display</h1>) : ( 
+          <List>
+              { this.state.savedBooks.map(book => (
+                <ListItem key={book._id}>
+
+                  <DeleteBtn onClick={() => this.handleDeleteButton(book._id)} />
+                </ListItem>
+              ))}
+          </List>)  }
         </Col>
       </Row>
   </Container>
   )}
-  
 }
-
 export default Saved;

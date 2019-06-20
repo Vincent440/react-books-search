@@ -3,79 +3,126 @@ import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Col, Row, Container } from "../components/Grid";
 import { Input, FormBtn } from "../components/Form";
+import { List, ListItem } from "../components/List";
+import SaveBtn from "../components/SaveBtn";
 
 class Search extends Component {
   state = {
     books: [],
-    title: ""
+    title: "",
+    searchMessage:"No books to display.",
+    savedText:""
   };
-
-  componentDidMount() {
-    this.loadBooks();
-  }
-
-  loadBooks = () => {
-    API.getBooks()
-      .then(res =>
-        this.setState({ books: res.data, searchInput: "" })
-      )
-      .catch(err => console.log(err));
-  };
-
-  deleteBook = id => {
-    API.deleteBook(id)
-      .then(res => this.loadBooks())
-      .catch(err => console.log(err));
-  };
-
   handleInputChange = event => {
     const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
+    this.setState({[name]: value});
+  };
+  saveBookToDb = id => {
+    let selectedBooks = this.state.books.filter(book => book.id === id);
+    API.saveBook(selectedBooks[0]).then(alert("SAVED")).catch(err => console.log(err))
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.searchInput) {
-      API.saveBook({
-        title: this.state.title,
-        author: this.state.author,
-        synopsis: this.state.synopsis
-      })
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err));
-    }
+    API.searchGoogleBooks(this.state.title).then(res => {
+      if (!res.data.items) {
+        this.setState({ searchMessage: "No books found!", books: [] });
+      }
+      else {
+        let booksNum = 0;
+        if (res.data.totalItems > 20) {
+          booksNum = "Displaying 20 of " + res.data.totalItems + " books";
+        } else {
+          booksNum = res.data.items.length + " books found!";
+        }
+        this.setState({ searchMessage: booksNum });
+
+        let bookData = res.data.items;
+        bookData = bookData.map(book => {
+          const authors = typeof book.volumeInfo.authors !== "undefined" ? book.volumeInfo.authors.join(", ") : "n/a";
+          const description = typeof book.volumeInfo.description !== "undefined" ? book.volumeInfo.description : "n/a";
+          const imageUrl = typeof book.volumeInfo.imageLinks.thumbnail !== "undefined" ? book.volumeInfo.imageLinks.thumbnail : "";
+          const link = typeof book.volumeInfo.infoLink !== "undefined" ? book.volumeInfo.infoLink : "";
+          book = {
+            id: book.id,
+            title: book.volumeInfo.title,
+            author: authors,
+            description: description,
+            image: imageUrl,
+            link: link
+          };
+          return book;
+        });
+        this.setState({ books: bookData });
+      }
+      }).catch(err => console.log(err));
   };
 
   render() {
     return (
-      <Container fluid>
+      <Container>
         <Row>
           <Col size="md-12">
             <Jumbotron>
-            <h1>Search Google For A Book</h1>
+            <h1>Search Google Books</h1>
             </Jumbotron>
           </Col>
         </Row>
-        <Row>
-          <Col size="md-10 sm-12">
-            <form>
-              <Input
-                value={this.state.title}
-                onChange={this.handleInputChange}
-                name="searchInput"
-                placeholder="Book Title to search"
-              />
-              <FormBtn
-                disabled={!this.state.searchInput}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Book
-              </FormBtn>
+        <Row> 
+          <Col size="2"/>
+          <Col size="lg-8 md-10">
+            <form className='text-center'>
+              <Input value={this.state.title} onChange={this.handleInputChange} name="title" placeholder="Book Title" />
+              <FormBtn disabled={!this.state.title} onClick={this.handleFormSubmit}>Search Google Books</FormBtn>
             </form>
           </Col>
+          <Col size="2"/>
         </Row>
+        <Row>
+        <Col size="md-12">
+        { (this.state.books.length > 0) ? (
+          <div>
+            <h4 className='d-inline p-1'>Results: {this.state.searchMessage}</h4>
+            <List>
+              {this.state.books.map(book => (
+                <ListItem key={book._id} >
+                  <div key={book.id} className="row no-gutters my-4 border border-info">
+                    <div className="col-12">
+                      <h5 className="text-light bg-info p-2">{book.title}</h5>
+                      <div className="row no-gutters">
+                        <div className="col-6 p-2">
+                          <span className="font-weight-bolder small">Author(s): </span>{book.author}
+                        </div>
+                        <div className="col-6 text-right">
+                          <a href={book.link} target="_blank" rel="noopener noreferrer" className="btn btn-outline-dark px-3 m-2" role="button">View</a>
+                          <SaveBtn value={book.id} onClick={() => this.saveBookToDb(book._id)} />
+                        </div>
+                      </div>
+                      <div className="row no-gutters">
+                        <div className="col-12 p-2">
+                          <img src={book.image} alt={book.title} className="float-left mr-4" />
+                          <span className="font-weight-bolder small">Description: </span>{book.description}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ListItem>
+              ))}
+            </List>
+          </div>
+          ) : (
+            <div>
+              <h4 className='d-inline p-1'>Results:</h4>
+              <List>
+                <ListItem>
+                  <h1 className='display-4 text-center py-5'>{this.state.searchMessage}</h1>
+                </ListItem>
+              </List>
+            </div>
+          )
+        }
+        </Col>
+      </Row>
       </Container>
     );
   }

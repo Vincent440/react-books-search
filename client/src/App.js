@@ -3,18 +3,18 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Search from './pages/Search';
 import Saved from './pages/Saved';
-import ErrPage from "./pages/ErrPage";
-import Nav from "./components/Nav";
+import NoMatch from "./pages/NoMatch";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <Router>
-      <Nav />
+      <Navbar />
       <div>
         <Switch>
           <Route exact path="/" component={Search} />
           <Route exact path="/saved" component={Saved} />
-          <Route component={ErrPage} />
+          <Route component={NoMatch} />
         </Switch>
       </div>
     </Router>
