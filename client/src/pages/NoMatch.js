@@ -18,7 +18,7 @@ function noMatch() {
             </h1>
             <Router>
               <Route >
-                <a href="/search">Back to Search</a>
+                <a href="/">Back to Search</a>
               </Route>
             </Router>
           </Jumbotron>
