@@ -73,44 +73,48 @@ class Search extends Component {
           </Col>
         </Row>
         <Row> 
-          <Col size="2"/>
+          <Col size="lg-2 md-1"/>
           <Col size="lg-8 md-10">
             <form className='text-center'>
               <Input value={this.state.title} onChange={this.handleInputChange} name="title" placeholder="Book Title" />
               <FormBtn disabled={!this.state.title} onClick={this.handleFormSubmit}>Search Google Books</FormBtn>
             </form>
           </Col>
-          <Col size="2"/>
+          <Col size="lg-2 md-1"/>
         </Row>
         <Row>
-        <Col size="md-12">
+        <Col size="12">
         { (this.state.books.length > 0) ? (
           <div>
             <h4 className='d-inline p-1'>Results: {this.state.searchMessage}<span className="badge badge-success mx-3 p-2">{this.state.savedText}</span><span className="badge badge-danger mx-3 p-2">{this.state.errorText}</span></h4>
             <List>
               {this.state.books.map(book => (
-                <ListItem key={book.id} >
-                  <div className="row no-gutters my-4 border border-info">
-                    <div className="col-12">
+                <ListItem key={book._id} >
+                  <Row>
+                    <div className="my-2 border border-info">
+                    <Col size="12">
                       <h5 className="text-light bg-info p-2">{book.title}</h5>
-                      <div className="row no-gutters">
-                        <div className="col-6 p-2">
+                      <Row className="no-gutters">
+                        <Col size="6">
                           <span className="font-weight-bolder small">Author(s): </span>{book.author}
-                        </div>
-                        <div className="col-6 text-right">
+                        </Col>
+                        <Col size="6">
                           <a href={book.link} target="_blank" rel="noopener noreferrer" className="btn btn-outline-dark px-3 m-2" role="button">View</a>
                           <SaveBtn onClick={() => this.saveBookToDb(book._id)} />
-                        </div>
-                      </div>
-                      <div className="row no-gutters">
-                        <div className="col-12 p-2">
-                          <img src={book.image} alt={book.title} className="float-left mr-3 p-2" />
-                          <span className="font-weight-bolder small">Description: </span>
-                          <p className='text-justify'>{book.description}</p>
-                        </div>
-                      </div>
+                        </Col>
+                      </Row>
+                      <Row className="no-gutters">
+                        <Col size="12">
+                          <div className="p-2">
+                            <img src={book.image} alt={book.title} className="float-left mr-3 p-2" />
+                            <span className="font-weight-bolder small">Description: </span>
+                            <p className='text-justify'>{book.description}</p>
+                          </div>
+                        </Col>
+                      </Row>
+                    </Col>
                     </div>
-                  </div>
+                  </Row>
                 </ListItem>
               ))}
             </List>
