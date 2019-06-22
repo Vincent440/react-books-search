@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const express = require("express");
 const mongoose = require("mongoose");
 const routes = require("./routes");
@@ -10,8 +9,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Connect to the Mongo DB
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useFindAndModify: false },err => {
-  console.log( err ? err : "Mongoose connected to the DB successfully!");
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useFindAndModify: false }, error =>{ 
+  console.log( error ? error : "Mongoose connected to the DB successfully!");
 });
 
 if (process.env.NODE_ENV === "production") {
@@ -22,4 +21,6 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Start the API server
-app.listen(PORT, () => console.log(`App API ==>  server now on http://localhost:${PORT}!`));
+app.listen(PORT, () =>{
+  console.log(`App API ==>  server now on http://localhost:${PORT}!`)
+});
