@@ -7,17 +7,17 @@ import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <div>
+    <div>
+      <Router>
+        <Navbar />
         <Switch>
-          <Route exact path="/" component={search} />
-          <Route exact path="/saved" component={saved} />
+          <Route exact strict path="/" component={search} />
+          <Route exact strict path="/saved" component={saved} />
           <Route component={search} />
         </Switch>
-      </div>
-    </Router>
-    );
+      </Router>
+    </div>
+  );
 }
 
 export default App;
