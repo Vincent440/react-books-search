@@ -8,8 +8,7 @@ const mongooseConfig = { useUnifiedTopology: true, useNewUrlParser: true, useFin
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Connect to the Mongo DB
-mongoose.connect(MONGODB_URI, mongooseConfig, error => console.log(error ? error : "--Connected to Database"));
+mongoose.connect(MONGODB_URI, mongooseConfig, error => console.log(error ? error : "-- Connected to Database"));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -17,4 +16,4 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(routes);
 
-app.listen(PORT, () => console.log(`--API RUNNING ON ==> Port = ${PORT}`));
+app.listen(PORT, () => console.log(`-- API RUNNING ON ==> Port = ${PORT} `));
