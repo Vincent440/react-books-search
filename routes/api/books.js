@@ -1,16 +1,16 @@
-const router = require("express").Router();
-const booksController = require("../../controllers/booksController");
+const router = require('express').Router()
+const booksController = require('../../controllers/booksController')
 
 // '/api/books' routes
-router.route("/")
+router.route('/')
 // get route to: return all saved books as JSON
-.get(booksController.findAll)
+  .get(booksController.findAll)
 // post route to: save a new book to the database
-.post(booksController.create);
+  .post(booksController.create)
 
 // '/api/books/:id' route
-router.route("/:id")
+router.route('/:id')
 // delete a book from the database
-.delete(booksController.remove);
+  .delete(booksController.remove)
 
-module.exports = router;
+module.exports = router

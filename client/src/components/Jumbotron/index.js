@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react'
 
-function Jumbotron({ children }) {
+function Jumbotron ({ children }) {
   return (
-    <div style={{ height: 100, clear: "both", paddingTop: 20,paddingBottom:20, textAlign: "center" }} className="jumbotron">
+    <div style={{ height: 100, clear: 'both', paddingTop: 20, paddingBottom: 20, textAlign: 'center' }} className='jumbotron'>
       {children}
     </div>
-  );
+  )
 }
-export default Jumbotron;
+export default Jumbotron
