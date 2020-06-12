@@ -2,7 +2,7 @@
   max-height: 600px;
   min-height: 30vh;
   border: 3px rgb(0, 0, 0) solid;
-  border-radius: 20px;
+  border-radius: 1em;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -12,5 +12,5 @@
 }
 
 .list-overflow-container li {
-  border-radius: 25px;
+  border-radius: 1em;
 }

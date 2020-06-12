@@ -10,7 +10,7 @@ class Search extends Component {
   state = {
     books: [],
     title: "",
-    searchMessage:"No books to display.\n Enter a book title to search",
+    searchMessage:"No books to display. Enter a book title to search.",
     savedText:"",
     errorText:""
   };
@@ -18,6 +18,7 @@ class Search extends Component {
     const { name, value } = event.target;
     this.setState({[name]: value});
   };
+
   saveBookToDb = id => {
     let selectedBooks = this.state.books.filter(book => book._id === id);
     console.log(selectedBooks[0]);
@@ -64,72 +65,89 @@ class Search extends Component {
       }
       }).catch(err => console.log(err));
   };
+
   render() {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-12">
+          <Col size="12">
             <Jumbotron>
             <h1>Search Google Books</h1>
             </Jumbotron>
           </Col>
         </Row>
-        <Row> 
+
+        <Row>
           <Col size="12">
-            <form className='text-center px-5 py-4'>
+            <form className='text-center py-4'>
               <Input value={this.state.title} onChange={this.handleInputChange} name="title" placeholder="Book Title" />
               <FormBtn disabled={!this.state.title} onClick={this.handleFormSubmit}>Search Google Books</FormBtn>
             </form>
           </Col>
         </Row>
+
         <Row>
-        <Col size="12">
-        { (this.state.books.length > 0) ? (
-          <div>
-            <h2>Results: {this.state.searchMessage}<span className="badge badge-success mx-3 p-2">{this.state.savedText}</span><span className="badge badge-danger mx-3 p-2">{this.state.errorText}</span></h2>
-            <List>
-              {this.state.books.map(book => (
-                <ListItem key={book._id} >
-                  <Row>
-                    <div className="my-2 border border-info">
-                    <Col size="12">
-                      <h3 className="text-light bg-info p-2">{book.title}</h3>
-                      <Row className="no-gutters">
-                        <Col size="6">
-                          <span className="font-weight-bolder small">Author(s): </span>{book.author}
-                        </Col>
-                        <Col size="6">
-                          <a href={book.link} target="_blank" rel="noopener noreferrer" className="btn btn-outline-dark px-3 m-2" role="button">View</a>
-                          <SaveBtn onClick={() => this.saveBookToDb(book._id)} />
-                        </Col>
-                      </Row>
-                      <Row className="no-gutters">
+          <Col size="12">
+            { (this.state.books.length > 0) ? (
+              <div>
+                <h2>
+                  Results: {this.state.searchMessage}
+                  <span className="badge badge-success mx-3 p-2">{this.state.savedText}</span>
+                  <span className="badge badge-danger mx-3 p-2">{this.state.errorText}</span>
+                </h2>
+                <List>
+                  {this.state.books.map(book => (
+                    <ListItem key={book._id} >
+                      <Row>
                         <Col size="12">
-                          <div className="p-2">
-                            <img src={book.image} alt={book.title} className="float-left mr-3 p-2" />
-                            <span className="font-weight-bolder small">Description: </span>
-                            <p className='text-justify'>{book.description}</p>
-                          </div>
+                          <h3 className="text-light rounded bg-info p-2">{book.title}</h3>
+                          <Row>
+                            <Col size="sm-6 md-7 lg-8 xl-9">
+                              <p className="text-center text-sm-left">
+                                <span className="font-weight-bolder">Author(s): </span>
+                                {book.author}
+                              </p>
+                            </Col>
+
+                            <Col size="sm-6 md-5 lg-4 xl-3">
+                              <div className="text-center text-sm-right">
+                                <a href={book.link} target="_blank" rel="noopener noreferrer" className="btn btn-outline-dark px-3 m-2" role="button">View</a>
+                                <SaveBtn onClick={() => this.saveBookToDb(book._id)} />
+                              </div>
+                            </Col>
+                          </Row>
+
+                          <Row>
+                            <Col size="12">
+                              <div class="text-center">
+                                <img src={book.image} alt={book.title} className="float-sm-left mr-3 p-2" />
+                              </div>
+                              <h4>
+                                Description:
+                              </h4>
+                              <p className='text-justify'>
+                                {book.description}
+                              </p>
+                            </Col>
+                          </Row>
+
                         </Col>
                       </Row>
-                    </Col>
-                    </div>
-                  </Row>
-                </ListItem>
-              ))}
-            </List>
-          </div>
-          ) : (
-            <div>
-              <h4 className='d-inline p-1'>Results:</h4>
-              <List>
-                  <h2 className='display-4 text-center py-5'>{this.state.searchMessage}</h2>
-              </List>
-            </div>
-          )
-        }
-        </Col>
-      </Row>
+                    </ListItem>
+                  ))}
+                </List>
+              </div>
+              ) : (
+                <div>
+                  <h2 className='d-inline p-1'>Results:</h2>
+                  <List>
+                      <h3 className='display-4 text-center py-5'>{this.state.searchMessage}</h3>
+                  </List>
+                </div>
+              )
+            }
+          </Col>
+        </Row>
       </Container>
     );
   }

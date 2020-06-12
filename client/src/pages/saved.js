@@ -24,45 +24,56 @@ render() {
   return (
       <Container fluid>
         <Row>
-          <Col size="md-12">
+          <Col size="12">
             <Jumbotron>
               <h1>Saved Books</h1>
             </Jumbotron>
           </Col>
         </Row>
         <Row>
-        <Col size="md-12">
-        { (this.state.savedBooks.length > 0) ? (
-        <div>
-          <List>
-              { this.state.savedBooks.map(book => (
-                <ListItem key={book._id}>
-                  <div className="row no-gutters my-2 border border-success">
-                    <div className="col-12">
-                      <h3 className="text-light bg-success p-1">{book.title}</h3>
-                      <div className="row no-gutters">
-                        <div className="col-6 p-2">
-                          <span className="font-weight-bolder small">Author(s): </span>{book.author}
-                        </div>
-                        <div className="col-6 text-right">
-                          <a href={book.link} target="_blank" rel="noopener noreferrer" className="btn btn-outline-dark px-3 m-2" role="button">View</a>
-                          <DeleteBtn onClick={() => this.handleDeleteButton(book._id)} />
-                        </div>
-                      </div>
-                      <div className="row no-gutters">
-                        <div className="col-12 p-2">
-                          <img src={book.image} alt={book.title} className="float-left mr-3 p-2" />
-                          <span className="font-weight-bolder small">Description: </span>
-                          <p className='text-justify p-2'>{book.description}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ListItem>
-              ))  }
-          </List>
-        </div>)  : (<h2 className='border p-4 text-center'>No books to display.</h2>)
-        }
+        <Col size="12">
+          { (this.state.savedBooks.length > 0) ? (
+            <div>
+              <h2 className="pl-4">
+                Saved Books
+              </h2>
+              <List>
+                { this.state.savedBooks.map(book => (
+                  <ListItem key={book._id}>
+                    <Row>
+                      <Col size="12">
+                        <h3 className="text-light rounded bg-info p-2">{book.title}</h3>
+                        <Row>
+                          <Col size="sm-6 md-7 lg-8 xl-9">
+                            <p className="text-center text-sm-left">
+                              <span className="font-weight-bolder">Author(s): </span>
+                              {book.author}
+                            </p>
+                          </Col>
+                          <Col size="sm-6 md-5 lg-4 xl-3">
+                            <div className="text-center text-sm-right">
+                              <a href={book.link} target="_blank" rel="noopener noreferrer" className="btn btn-outline-dark px-3 m-2" role="button">View</a>
+                              <DeleteBtn onClick={() => this.handleDeleteButton(book._id)} />
+                            </div>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col size="12">
+                            <img src={book.image} alt={book.title} className="float-sm-left mr-3 p-2" />
+                            <h4>Description:</h4>
+                            <p className='text-justify p-2'>
+                              {book.description}
+                            </p>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>
+                  </ListItem>
+                ))  }
+              </List>
+            </div>
+            )  : (<h2 className='border p-4 text-center'>No books to display.</h2>)
+          }
         </Col>
       </Row>
   </Container>
