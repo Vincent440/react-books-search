@@ -10,7 +10,7 @@ class Search extends Component {
   state = {
     books: [],
     title: "",
-    searchMessage:"No books to display.",
+    searchMessage:"No books to display.\n Enter a book title to search",
     savedText:"",
     errorText:""
   };
@@ -21,7 +21,9 @@ class Search extends Component {
   saveBookToDb = id => {
     let selectedBooks = this.state.books.filter(book => book._id === id);
     console.log(selectedBooks[0]);
-    API.saveBook(selectedBooks[0]).then(()=>this.setState({savedText:"Saved",errorText:""})).catch(()=> this.setState({savedText:"",errorText:"Error Saving"}))
+    API.saveBook(selectedBooks[0])
+      .then(()=> this.setState({savedText:"Saved",errorText:""}))
+      .catch(()=> this.setState({savedText:"",errorText:"Error Saving"}))
   };
 
   handleFormSubmit = event => {
@@ -31,7 +33,7 @@ class Search extends Component {
         this.setState({ searchMessage: "No books found!", books: [] });
       }
       else {
-        let booksNum = 0;
+        let booksNum;
         if (res.data.totalItems > 10) {
           booksNum = "Displaying 10 of " + res.data.totalItems + " books";
         } else {
@@ -64,7 +66,7 @@ class Search extends Component {
   };
   render() {
     return (
-      <Container>
+      <Container fluid>
         <Row>
           <Col size="md-12">
             <Jumbotron>
@@ -73,27 +75,25 @@ class Search extends Component {
           </Col>
         </Row>
         <Row> 
-          <Col size="lg-2 md-1"/>
-          <Col size="lg-8 md-10">
-            <form className='text-center'>
+          <Col size="12">
+            <form className='text-center px-5 py-4'>
               <Input value={this.state.title} onChange={this.handleInputChange} name="title" placeholder="Book Title" />
               <FormBtn disabled={!this.state.title} onClick={this.handleFormSubmit}>Search Google Books</FormBtn>
             </form>
           </Col>
-          <Col size="lg-2 md-1"/>
         </Row>
         <Row>
         <Col size="12">
         { (this.state.books.length > 0) ? (
           <div>
-            <h4 className='d-inline p-1'>Results: {this.state.searchMessage}<span className="badge badge-success mx-3 p-2">{this.state.savedText}</span><span className="badge badge-danger mx-3 p-2">{this.state.errorText}</span></h4>
+            <h2>Results: {this.state.searchMessage}<span className="badge badge-success mx-3 p-2">{this.state.savedText}</span><span className="badge badge-danger mx-3 p-2">{this.state.errorText}</span></h2>
             <List>
               {this.state.books.map(book => (
                 <ListItem key={book._id} >
                   <Row>
                     <div className="my-2 border border-info">
                     <Col size="12">
-                      <h5 className="text-light bg-info p-2">{book.title}</h5>
+                      <h3 className="text-light bg-info p-2">{book.title}</h3>
                       <Row className="no-gutters">
                         <Col size="6">
                           <span className="font-weight-bolder small">Author(s): </span>{book.author}
@@ -123,7 +123,7 @@ class Search extends Component {
             <div>
               <h4 className='d-inline p-1'>Results:</h4>
               <List>
-                  <h1 className='display-4 text-center py-5'>{this.state.searchMessage}</h1>
+                  <h2 className='display-4 text-center py-5'>{this.state.searchMessage}</h2>
               </List>
             </div>
           )

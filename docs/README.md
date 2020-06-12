@@ -6,7 +6,33 @@ Full Stack MERN Application, MongoDB Express React Node. Using React to query an
 
 ## Getting Started
 
+Requirements
+* **MongoDB**
+* **Node.js**
+* **NPM**
+* Git and CLI knowledge of basic commands.
 
+---
+
+1. Clone the repository:
+
+    ```bash
+    git clone <URL to git repository>
+    ```
+
+1. Change directory into the local folder:
+
+    ```bash
+    cd react-books-search
+    ```
+
+1. Start the application in terminal with:
+
+    ```bash
+    npm start or yarn start
+    ```
+
+---
 
 ### Check Out My Profile & Portfolio Here!
 

@@ -34,13 +34,12 @@ render() {
         <Col size="md-12">
         { (this.state.savedBooks.length > 0) ? (
         <div>
-          <h4 className='d-inline p-1'>Saved Books:</h4> 
           <List>
               { this.state.savedBooks.map(book => (
                 <ListItem key={book._id}>
                   <div className="row no-gutters my-2 border border-success">
                     <div className="col-12">
-                      <h5 className="text-light bg-success p-1">{book.title}</h5>
+                      <h3 className="text-light bg-success p-1">{book.title}</h3>
                       <div className="row no-gutters">
                         <div className="col-6 p-2">
                           <span className="font-weight-bolder small">Author(s): </span>{book.author}
@@ -62,7 +61,7 @@ render() {
                 </ListItem>
               ))  }
           </List>
-        </div>)  : (<h1 className='border p-4 text-center'>No Saved Books to display</h1>)
+        </div>)  : (<h2 className='border p-4 text-center'>No books to display.</h2>)
         }
         </Col>
       </Row>

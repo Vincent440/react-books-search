@@ -16,4 +16,4 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(routes)
 
-app.listen(PORT, () => console.log(`-- API RUNNING ON ==> Port = ${PORT} `))
+app.listen(PORT, () => console.log(`-- API RUNNING ON ==> Port: ${PORT}`))

@@ -4,7 +4,7 @@ import React from 'react'
 // That way we don't have to define them all individually
 function DeleteBtn (props) {
   return (
-    <button className='save-btn btn px-3 m-2 btn-outline-danger' {...props} tabIndex='0'>
+    <button className='btn px-3 m-2 btn-outline-danger' {...props} tabIndex='0'>
       Delete
     </button>
   )
