@@ -63,4 +63,7 @@ typings/
 # React Production build
 client/build
 
+
+# Lock files
+package-lock.json
 yarn.lock
