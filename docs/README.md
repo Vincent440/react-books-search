@@ -2,7 +2,7 @@
 
 Full Stack MERN Application, MongoDB Express React Node. Using React to query and display books based on user searches, and allow the user to store them. 
 
-[React Books Search](https://googlereactbooks.herokuapp.com/)
+[React Books Search](https://googlereactbooks.herokuapp.com/) deployed on Heroku.
 
 ## Getting Started
 
