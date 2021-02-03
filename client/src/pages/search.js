@@ -72,7 +72,7 @@ class Search extends Component {
         <Row>
           <Col size="12">
             <Jumbotron>
-            <h1>Search Google Books</h1>
+              <h1>Search Google Books</h1>
             </Jumbotron>
           </Col>
         </Row>
@@ -92,16 +92,15 @@ class Search extends Component {
           </Col>
         </Row>
 
-        <Row>
-          <Col size="12">
+
             { (this.state.books.length > 0) ? (
-              <div>
+              
+                <List>
                 <h2>
                   Results: {this.state.searchMessage}
                   <span className="badge badge-success mx-3 p-2">{this.state.savedText}</span>
                   <span className="badge badge-danger mx-3 p-2">{this.state.errorText}</span>
                 </h2>
-                <List>
                   {this.state.books.map(book => (
                     <ListItem key={book._id} >
                       <Row>
@@ -150,7 +149,6 @@ class Search extends Component {
                     </ListItem>
                   ))}
                 </List>
-              </div>
               ) : (
                 <div>
                   <h2 className='d-inline p-1'>Results:</h2>
@@ -160,8 +158,6 @@ class Search extends Component {
                 </div>
               )
             }
-          </Col>
-        </Row>
       </Container>
     );
   }

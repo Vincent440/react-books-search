@@ -1,6 +1,5 @@
 .list-overflow-container {
-  max-height: 600px;
-  min-height: 30vh;
+  max-height: 75vh;
   border: 3px rgb(0, 0, 0) solid;
   border-radius: 1em;
   overflow-y: scroll;
